@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class MyLinkedList<T> implements Iterable<T>{
 	
-	private Node<T> head;
+	private ListLab.Node<T> head;
 	private int size = 0;
 	
 	public int getSize() {
@@ -13,13 +13,13 @@ public class MyLinkedList<T> implements Iterable<T>{
 	
 	public void add(T obj) {
 		if(head == null) {
-			this.head = new Node<T>(obj);
+			this.head = new ListLab.Node<T>(obj);
 		} else {
-			Node<T> currentNode = head;
+			ListLab.Node<T> currentNode = head;
 			while(currentNode.getNext() != null) {
 				currentNode = currentNode.getNext();
 			}
-			currentNode.setNext(new Node<T>(obj));
+			currentNode.setNext(new ListLab.Node<T>(obj));
 		}
 		size++;
 	}

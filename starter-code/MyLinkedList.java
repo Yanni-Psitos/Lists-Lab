@@ -4,26 +4,63 @@ import java.util.Iterator;
 
 public class MyLinkedList<T> implements Iterable<T>{
 	
-	private Node<T> head;
+	private ListLab.Node<T> head;
 	private int size = 0;
-	
+
 	public int getSize() {
 		return size;
 	}
 	
 	public void add(T obj) {
-		//todo
+		if(head == null) {
+			this.head = new Node<T>(obj);
+		} else {
+			Node<T> currentNode = head;
+			while(currentNode.getNext() != null) {
+				currentNode = currentNode.getNext();
+			}
+			currentNode.setNext(new Node<T>(obj));
+		}
 		size++;
 	}
 	
 	public boolean remove(int index) {
-		//todo
+		if(index < 0 || index > size) {
+			return false;
+		} else if(index == 0) {
+			if(head.next == null) {
+				head = null;
+			} else {
+				head = head.getNext();
+			}
+		} else {
+			Node<T> currentNode = head;
+			if (currentNode != null) {
+				Node<T> prevNode = null;
+				for (int i = 0; i < index; i++) {
+					if (currentNode.getNext() == null) {
+						return false;
+					}
+					prevNode = currentNode;
+					currentNode = currentNode.getNext();
+				}
+				prevNode.setNext(currentNode.getNext());
+			}
+		}
 		size--;
 		return true;
 	}
 	
 	public T get(int index) {
-		//todo
+		if(index < 0 || index > size) {
+			return null;
+		}
+		Node<T> currentNode = head;
+		if(currentNode != null) {
+			for(int i = 0; i < index; i++) {
+				currentNode = currentNode.getNext();
+			}
+		}
 		return currentNode.getData();
 	}
 
@@ -35,26 +72,39 @@ public class MyLinkedList<T> implements Iterable<T>{
 	
 	private class MyIterator<T> implements Iterator<T> {
 
-		private Node<T> node;
+		private ListLab.Node<T> node;
 		
-		public MyIterator(Node<T> node) {
-			//todo
-		}
-		@Override
-		public boolean hasNext() {
-			//todo
-		}
+		public MyIterator(ListLab.Node<T> node) {
+			private Node<T> node;
 
-		@Override
-		public T next() {
-			//todo
-		}
+			public MyIterator(Node<T> node) {
+				this.node = node;
+			}
 
-		@Override
-		public void remove() {
-			// TODO Auto-generated method stub
-			
+			@Override
+			public boolean hasNext() {
+				if(node != null) {
+					return true;
+				}
+				return false;
+			}
+
+			@Override
+			public T next() {
+				if(this.hasNext()) {
+					Node<T> current = node;
+					node = node.getNext();
+					return current.getData();
+				} else {
+					return node.getData();
+				}
+			}
+
+			@Override
+			public void remove() {
+				// TODO Auto-generated method stub
+
+			}
+
 		}
-		
-	}
 }
